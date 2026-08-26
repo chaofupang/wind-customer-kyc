@@ -1,0 +1,8 @@
+﻿customer_type,signal,recommended_wind_area,default_fit,reason
+Hedge Fund / Quant,QFII or China equity strategy,China Equity Data; PIT Fundamentals; Quant Factors; Historical Market Data; API/WDS,HIGH,Onshore/China systematic or data-intensive investment use case
+Asset Manager,QFII or China/Greater China fund,Wind Financial Terminal; China Equity Data; Fund Data; Research; API/WDS,HIGH,China investment and research workflow
+Fixed Income Investor,Bond Connect Northbound,China Bond Data; Issuer/Credit Data; Valuation/Yield/Curve; EDB; API/WDS,HIGH,Formal China bond-market access
+Bank,China markets/research/trading,WFT; China Equity/Bond; EDB; Research; API,HIGH,"Markets, research and treasury use cases"
+Corporate,Treasury/FX/commodity/macro use case,EDB; WFT; Commodity/Economic Data,MEDIUM,Only score high if a real financial-data use case exists
+University / Research,Finance/economics/China research,WFT; EDB; Research; China Equity/Bond/Fund Data,MEDIUM,Institutional/research user base
+Index Provider,China index/data requirement,Index Data; China Market Data; API,MEDIUM,"Potential customer/partner, but run competitor screening first"

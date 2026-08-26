@@ -1,0 +1,206 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Wind Customer KYC Output",
+  "type": "object",
+  "required": [
+    "company",
+    "competitor",
+    "sanctions",
+    "china_relevance_score",
+    "lead_score",
+    "crm_recommendation"
+  ],
+  "properties": {
+    "company": {
+      "type": "string"
+    },
+    "official_entity": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "primary_customer_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "hq": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "scale": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "aum_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "strategy": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "competitor": {
+      "enum": [
+        "YES",
+        "PARTIAL",
+        "NO",
+        "UNKNOWN"
+      ]
+    },
+    "competitor_level": {
+      "enum": [
+        "Direct",
+        "Partial",
+        "None",
+        "Unknown"
+      ]
+    },
+    "sanctions": {
+      "enum": [
+        "CLEAR",
+        "SANCTIONS-LINKED",
+        "POTENTIAL MATCH",
+        "CONFIRMED MATCH",
+        "UNKNOWN"
+      ]
+    },
+    "qfii": {
+      "enum": [
+        "YES",
+        "NO",
+        "UNKNOWN"
+      ]
+    },
+    "qfii_approval_date": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "bond_connect": {
+      "enum": [
+        "YES",
+        "NO",
+        "UNKNOWN"
+      ]
+    },
+    "china_investment_exposure": {
+      "enum": [
+        "High",
+        "Medium",
+        "Low",
+        "Unknown"
+      ]
+    },
+    "china_operating_exposure": {
+      "enum": [
+        "High",
+        "Medium",
+        "Low",
+        "Unknown"
+      ]
+    },
+    "china_research_data_exposure": {
+      "enum": [
+        "High",
+        "Medium",
+        "Low",
+        "Unknown"
+      ]
+    },
+    "china_presence": {
+      "enum": [
+        "High",
+        "Medium",
+        "Low",
+        "None",
+        "Unknown"
+      ]
+    },
+    "china_trend": {
+      "enum": [
+        "Expanding",
+        "Stable",
+        "Contracting",
+        "Unknown"
+      ]
+    },
+    "china_relevance_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 10
+    },
+    "wind_product_fit": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    },
+    "lead_score": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 100
+    },
+    "priority": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "Low",
+        "N/A"
+      ]
+    },
+    "crm_recommendation": {
+      "enum": [
+        "CREATE — Priority A",
+        "CREATE — Priority B",
+        "CREATE — Priority C",
+        "CREATE WITH CAUTION",
+        "INTERNAL REVIEW REQUIRED",
+        "DO NOT CREATE / WIND COMPETITOR",
+        "COMPLIANCE REVIEW REQUIRED"
+      ]
+    },
+    "confirmed_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "inferred_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unknown_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "next_sales_validation_questions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      }
+    }
+  }
+}

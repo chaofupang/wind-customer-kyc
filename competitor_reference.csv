@@ -1,0 +1,11 @@
+﻿company_or_brand,default_classification,key_overlap,notes
+Bloomberg,Direct,Terminal; market data; financial data; API/data feeds,Strong broad overlap
+LSEG / Refinitiv,Direct,Terminal/workspace; market data; financial data; API/data feeds,Strong broad overlap
+S&P Global,Direct,Market intelligence; company/market data; indices; data feeds,Assess business-unit-specific overlap
+FactSet,Direct,Financial data; analytics; workstation; APIs,Strong institutional-data overlap
+CEIC,Direct,Macroeconomic; China economic/industry data; API/data feed,Strong EDB/China macro overlap
+Morningstar,Partial,Fund data; investment research; market data,May also be customer/partner depending on team
+Macrobond,Direct,Macroeconomic database; analytics; data platform,Strong macro/EDB overlap
+MSCI,Partial,Index; ESG; analytics; market data,Material index/ESG overlap
+FTSE Russell,Partial,Index data; benchmarks; licensing,Index overlap
+STOXX,Partial,Index data; benchmarks; licensing,Index overlap
