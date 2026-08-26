@@ -15,7 +15,6 @@ metadata:
 All bundled resources are relative to this `SKILL.md`:
 
 - `qfii_official_2026-07.csv`
-- `qfii_emea_reference.xlsx` (optional backup)
 - `competitor_reference.csv`
 - `product_mapping.csv`
 - `china_market_access.md`
@@ -227,8 +226,6 @@ This is a mandatory high-value check.
 QFII verification is MANDATORY.
 
 Primary bundled source: `qfii_official_2026-07.csv`.
-
-Optional backup: `qfii_emea_reference.xlsx`.
 
 Match the researched entity against the `英文名称` field.
 
