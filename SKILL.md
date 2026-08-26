@@ -5,7 +5,7 @@ license: Proprietary. Internal Wind use only.
 compatibility: Requires an agent with web/browser access for current public information. Can use bundled XLSX/CSV/JSON references. If live web access is unavailable, mark dynamic checks as UNKNOWN rather than guessing.
 metadata:
   author: Wind EMEA Sales
-  version: "1.3.3-team"
+  version: "1.3.4"
 ---
 
 # Wind Customer KYC
@@ -97,7 +97,7 @@ A direct competitor materially overlaps with Wind in one or more of:
 - index data / index services
 - China financial data
 
-Read `references/competitor_reference.csv` for known examples and overlap areas.
+Read `competitor_reference.csv` for known examples and overlap areas.
 
 The reference list is not exhaustive. Independently assess any company not listed.
 
@@ -236,9 +236,8 @@ Lookup rules:
 3. Normalized case/punctuation differences may be accepted only when the legal entity is clearly the same.
 4. A common-name, parent, subsidiary, branch, or affiliate match must be verified before treating it as the researched entity.
 5. Fuzzy similarity alone is not confirmation.
-6. If the CSV is successfully read and the entity is not present, output `QFII = NO` for this EMEA reference.
-7. If the CSV cannot be accessed/read, try the XLSX backup if available.
-8. Only after both bundled sources fail technically may output be `QFII = UNKNOWN`.
+6. If the CSV is successfully read and the entity is not present, output QFII = NO for the July 2026 official CSRC list.
+7. If the CSV cannot be accessed/read, output QFII = UNKNOWN and explicitly state that the bundled official QFII source could not be read.
 
 If matched, output:
 
@@ -256,7 +255,7 @@ Do not assume a historic QFII approval is still commercially active if there is 
 
 Bond Connect verification is MANDATORY when assessing China market access.
 
-Read and follow `references/bond_connect_lookup.md`.
+Read and follow `bond_connect_lookup.md`.
 
 Primary official source:
 
@@ -354,7 +353,7 @@ Do not elevate Tier 3 evidence to Tier 1 strength.
 
 ## 10. Wind product fit
 
-Read `references/product_mapping.csv`.
+Read `product_mapping.csv`.
 
 Recommend only products supported by the customer's actual profile.
 
