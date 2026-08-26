@@ -14,14 +14,14 @@ metadata:
 
 All bundled resources are relative to this `SKILL.md`:
 
-- `references/qfii_emea_reference.csv`
-- `references/qfii_emea_reference.xlsx` (optional backup)
-- `references/competitor_reference.csv`
-- `references/product_mapping.csv`
-- `references/china_market_access.md`
-- `references/bond_connect_lookup.md`
-- `schemas/output_schema.json`
-- `examples/lingotto-example.md`
+- `qfii_emea_reference.csv`
+- `qfii_emea_reference.xlsx` (optional backup)
+- `competitor_reference.csv`
+- `product_mapping.csv`
+- `china_market_access.md`
+- `bond_connect_lookup.md`
+- `output_schema.json`
+- `lingotto-example.md`
 
 ## Inputs
 
@@ -226,9 +226,9 @@ This is a mandatory high-value check.
 
 QFII verification is MANDATORY.
 
-Primary bundled source: `references/qfii_emea_reference.csv`.
+Primary bundled source: `qfii_emea_reference.csv`.
 
-Optional backup: `references/qfii_emea_reference.xlsx`.
+Optional backup: `qfii_emea_reference.xlsx`.
 
 Match the researched entity against the `英文名称` field.
 
