@@ -14,7 +14,7 @@ metadata:
 
 All bundled resources are relative to this `SKILL.md`:
 
-- `qfii_emea_reference.csv`
+- `qfii_official_2026-07.csv`
 - `qfii_emea_reference.xlsx` (optional backup)
 - `competitor_reference.csv`
 - `product_mapping.csv`
@@ -226,7 +226,7 @@ This is a mandatory high-value check.
 
 QFII verification is MANDATORY.
 
-Primary bundled source: `qfii_emea_reference.csv`.
+Primary bundled source: `qfii_official_2026-07.csv`.
 
 Optional backup: `qfii_emea_reference.xlsx`.
 
