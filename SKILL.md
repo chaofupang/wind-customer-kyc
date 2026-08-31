@@ -1,11 +1,12 @@
+[SKILL_v1.4.0.md](https://github.com/user-attachments/files/31637000/SKILL_v1.4.0.md)
 ---
 name: wind-customer-kyc
-description: Use when researching a company before creating a Wind CRM account. Performs entity verification, Wind competitor screening, sanctions pre-screening, AUM/scale and strategy research, QFII/Bond Connect China-market-access checks, China relevance scoring, Wind product-fit analysis, lead scoring, and a CRM-ready recommendation.
+description: Use when researching a company before creating a Wind CRM account. Performs entity verification, fixed CRM customer-type classification, Wind competitor screening, sanctions pre-screening, AUM/scale and core-business research, QFII/Bond Connect and China-exposure checks, evidence-based asset-class mapping, Wind product-fit analysis, sales recommendations, LinkedIn search keywords, and personalized outreach templates.
 license: Proprietary. Internal Wind use only.
 compatibility: Requires an agent with web/browser access for current public information. Can use bundled XLSX/CSV/JSON references. If live web access is unavailable, mark dynamic checks as UNKNOWN rather than guessing.
 metadata:
   author: Wind EMEA Sales
-  version: "1.3.4"
+  version: "1.4.0"
 ---
 
 # Wind Customer KYC
@@ -38,23 +39,22 @@ If the entity is clearly identifiable, begin immediately. Ask only when multiple
 
 ## Required workflow
 
-Run these steps in order:
+Run these research steps in order:
 
 1. Entity verification
 2. Wind competitor screening
 3. Sanctions and risk screening
-4. Customer classification
+4. Fixed Wind CRM customer-type classification
 5. Company scale / AUM
-6. Business or investment strategy
-7. China market access screening
-8. China exposure analysis
-9. Wind product fit
-10. China relevance score
-11. Commercial lead score
-12. Evidence summary
-13. CRM recommendation
-14. CRM-ready summary
-15. Next sales validation question
+6. Core business / investment strategy verification
+7. QFII and Bond Connect verification
+8. China exposure analysis, including China-related AUM/share only when reliably disclosed
+9. Evidence-based asset-class verification
+10. Wind product / function mapping by confirmed asset class
+11. Recommended sales angles
+12. LinkedIn search keywords
+13. First-round validation questions
+14. Personalized LinkedIn and Email outreach templates
 
 If a direct Wind competitor is confirmed, clearly flag `DO NOT CREATE / WIND COMPETITOR`.
 
@@ -138,34 +138,42 @@ This is a sales pre-screening and does not replace formal Wind compliance approv
 
 ## 4. Customer classification
 
-Choose one primary type and optional secondary type.
+Output exactly one primary `Customer Type`. It MUST be selected from the fixed Wind CRM taxonomy below. Do not invent, paraphrase, merge, or create new customer-type labels.
+
+Canonical taxonomy:
+
+| Chinese output | English output |
+|---|---|
+| 海外央行 | Overseas Central Bank |
+| 海外商业银行 | Overseas Commercial Bank |
+| 海外保险 | Overseas Insurance |
+| 海外券商 | Overseas Securities Firm |
+| 海外资管机构 | Overseas Asset Manager |
+| 海外对冲基金 | Overseas Hedge Fund |
+| 海外PEVC | Overseas PEVC |
+| 海外政府机构 | Overseas Government Institution |
+| 海外交易所 | Overseas Exchange |
+| 海外高校 | Overseas University |
+| 海外管理咨询公司 | Overseas Management Consulting Firm |
+| 海外智库 | Overseas Think Tank |
+| 海外媒体 | Overseas Media |
+| 海外企业 | Overseas Corporate |
+| 海外其它 | Overseas Other |
+
+Rules:
+
+1. Select only one category.
+2. Use the exact Chinese label when the report is in Chinese.
+3. Use the exact mapped English label when the report is in English.
+4. If the entity has multiple characteristics, choose the category that best represents its principal business and intended CRM classification.
+5. If it cannot reliably fit the first 14 categories, use `海外其它` / `Overseas Other`.
+6. Do not output alternative labels such as `Central Bank`, `Alternative Asset Manager`, `Financial Institution`, or `Government` as the Customer Type.
 
 Examples:
 
-- Hedge Fund
-- Asset Manager
-- Mutual Fund Manager
-- Pension Fund
-- Sovereign Wealth Fund
-- Private Equity
-- Venture Capital
-- Bank
-- Investment Bank
-- Broker
-- Insurance
-- Corporate
-- Commodity Trader
-- Energy Company
-- University
-- Research Institution
-- Government
-- Central Bank
-- Exchange
-- Index Provider
-- Financial Data Provider
-- Fintech
-- Consulting
-- Other
+- European Central Bank → `海外央行` / `Overseas Central Bank`
+- Tudor Investment Corporation → `海外对冲基金` / `Overseas Hedge Fund`
+- Siemens Energy AG → `海外企业` / `Overseas Corporate`
 
 ## 5. Company scale / AUM
 
@@ -236,8 +244,9 @@ Lookup rules:
 3. Normalized case/punctuation differences may be accepted only when the legal entity is clearly the same.
 4. A common-name, parent, subsidiary, branch, or affiliate match must be verified before treating it as the researched entity.
 5. Fuzzy similarity alone is not confirmation.
-6. If the CSV is successfully read and the entity is not present, output QFII = NO for the July 2026 official CSRC list.
-7. If the CSV cannot be accessed/read, output QFII = UNKNOWN and explicitly state that the bundled official QFII source could not be read.
+6. If the official CSV is successfully read and the entity is not present, output `QFII = NO` for the July 2026 official CSRC list.
+7. If the CSV cannot be accessed/read, output `QFII = UNKNOWN` and explicitly state that the bundled official QFII source could not be read.
+8. Do not infer QFII status from news, parent-company status, affiliates, or similar names when the official bundled list is available.
 
 If matched, output:
 
@@ -473,85 +482,276 @@ For important facts include the source and reference date.
 
 ## 15. Required output format
 
+### Language consistency
+
+The entire report must be in one language.
+
+- If the user asks in Chinese, output the full report in Chinese.
+- If the user asks in English, output the full report in English.
+- Do not mix Chinese and English except for product / technical names that are difficult or inappropriate to translate, such as `WFT`, `WDS`, `API`, `PIT`, `EDB`, and official legal entity names where appropriate.
+
 Start with:
 
-# Wind Customer KYC — <Company>
+`# Wind Customer KYC — <Company>`
 
-**Screening date:** <date>
+Do not add a separate screening-date line unless the date is materially needed for a dynamic risk or official-list result.
 
-## 1. CRM Decision
-One-line recommendation and Lead Score.
+### 1. Customer Snapshot / 客户总览
 
-## 2. Entity Verification
-Concise table.
+Use a single-column, two-field table. Do not use a four-column layout.
 
-## 3. Wind Competitor Screening
-YES / PARTIAL / NO plus evidence.
+Chinese format:
 
-## 4. Sanctions / Risk Screening
-Status plus caveat.
+| 项目 | 结果 |
+|---|---|
+| **正式名称** | <Official Entity Name> |
+| **客户类型** | <必须从固定15类中选择> |
+| **总部** | <HQ> |
+| **其他办公室** | <Major offices, only if confirmed> |
+| **管理规模（AUM）** | <Traditional AUM or the most relevant qualified scale metric> |
+| **核心业务** | <Core confirmed business / investment strategies> |
+| **主要市场** | <Main confirmed geographic / financial markets> |
+| **中国敞口** | <China market access and, when reliably available, China-related AUM and share of total AUM> |
+| **是否为Wind竞品** | <是 / 部分 / 否> |
+| **制裁风险** | <简洁状态> |
 
-## 5. Customer Type & Scale
-Include AUM definition/date if relevant.
+English format:
 
-## 6. Strategy / Business Model
-Only relevant strategy/use-case information.
+| Item | Result |
+|---|---|
+| **Official Name** | <Official Entity Name> |
+| **Customer Type** | <exact mapped English label from the fixed taxonomy> |
+| **Headquarters** | <HQ> |
+| **Other Offices** | <Major offices, only if confirmed> |
+| **AUM / Relevant Scale** | <Traditional AUM or the most relevant qualified scale metric> |
+| **Core Business** | <Core confirmed business / investment strategies> |
+| **Main Markets** | <Main confirmed geographic / financial markets> |
+| **China Exposure** | <China market access and, when reliably available, China-related AUM and share of total AUM> |
+| **Is a Wind Competitor** | <Yes / Partial / No> |
+| **Sanctions Risk** | <concise status> |
 
-## 7. China Market Access
-QFII / Bond Connect / other access.
+Snapshot rules:
 
-## 8. China Exposure
-Investment / Operating / Research-Data / Presence / Trend.
+- Do NOT include regulator, QFII approval date, AUM date as a separate row, sales priority, CRM recommendation, or overall judgment.
+- Do NOT add a prose paragraph immediately below the snapshot that repeats the table.
+- Do not output QFII and Bond Connect as separate snapshot rows.
+- Integrate QFII / Bond Connect into `China Exposure`.
+- When reliable China-related AUM is available, include both amount and share of total AUM where possible.
+  Example: `QFII; Bond Connect; China-related AUM approx. USD 10bn, ~12% of total AUM.`
+- When market access is confirmed but China AUM is not publicly disclosed:
+  `QFII; China-related AUM not publicly disclosed.`
+- When no reliable amount can be established, never estimate a China AUM percentage.
 
-## 9. China Relevance Score
-X/10 with reason.
+### 2. Confirmed Asset Classes & Wind Opportunities / 已确认资产类别与 Wind 机会
 
-## 10. Wind Product Fit
-Prioritized product table.
+This is the core analytical section.
 
-## 11. Commercial Lead Score
-Show all five components and total.
+Only include an asset class or business area when reliable evidence confirms that the company actually conducts that activity. Prefer omission over speculation.
 
-## 12. Why Wind?
-2–5 specific sales reasons.
+Actively verify relevant coverage across, where applicable:
 
-## 13. Evidence Summary
-Confirmed / Inferred / Unknown.
+- Equities
+- Fixed Income / Bonds
+- Funds
+- FX
+- Commodities
+- Macroeconomics
+- Private Markets / PEVC
+- Quantitative / Systematic Research
+- other materially relevant asset classes or research areas
 
-## 14. CRM Summary
-Provide this exact field block:
+Do NOT add an asset class merely because the institution is described as `multi-strategy`, `asset manager`, `bank`, `hedge fund`, or another broad category.
 
-**Company:**  
-**Official Entity:**  
-**Primary Customer Type:**  
-**HQ:**  
-**Scale:**  
-**AUM Type:**  
-**Main Strategy / Business:**  
-**QFII:** YES / NO / UNKNOWN  
-**QFII Approval Date / Custodian:**  
-**Bond Connect:** YES / NO / UNKNOWN  
-**Bond Connect Official List Date:**  
-**Investment China Exposure:**  
-**Operating China Exposure:**  
-**Research/Data China Exposure:**  
-**China Presence:**  
-**China Trend:**  
-**China Relevance:** X/10  
-**Wind Competitor:**  
-**Sanctions Status:**  
-**Potential Wind Needs:**  
-**Lead Score:** XX/100  
-**CRM Recommendation:**  
+Output:
 
-Then provide a 3–5 sentence CRM-ready narrative.
+| Asset Class / Business Area | Confirmed Activity | Potential Data Needs | Relevant Wind Products / Functions | Fit |
+|---|---|---|---|---|
+| <asset class> | <concise evidence-backed activity> | <needs logically arising from confirmed activity> | <specific Wind products/functions> | <Very High / High / Medium / Low> |
 
-## 15. Next Sales Validation Question
+Chinese reports must use Chinese headers and Chinese fit labels.
 
-End with 1–3 high-value questions that would most change the qualification or product-fit conclusion.
+Rules:
 
-Prefer specific questions over generic discovery questions.
+1. `Confirmed Activity` must be evidence-backed.
+2. `Potential Data Needs` may infer reasonable needs from confirmed activity, but phrase them as potential needs rather than confirmed procurement pain points.
+3. Product mapping must be selective and specific.
+4. Integrate China-related opportunities into the relevant asset class rather than creating a separate `China Opportunity` section.
+5. QFII should strengthen the fit of China equity / onshore-market datasets only when consistent with the client's confirmed business.
+6. Bond Connect should strengthen the fit of China fixed-income / rates / credit datasets only when consistent with the client's confirmed business.
+7. Do not create an Opportunity Score section.
+8. Do not create a separate Key Business Details section; relevant details belong in the Snapshot.
 
-Example for a newly approved QFII:
+### 3. Risk Screening / 风险检查
 
-`Are you currently building out your onshore China investment and data infrastructure following the QFII approval, and which teams will consume China market/fundamental data?`
+Output only these two checks:
+
+| Check | Result | Why |
+|---|---|---|
+| **Is a Wind Competitor** | <Yes / Partial / No> | <one concise sentence explaining why> |
+| **Sanctions Risk** | <status> | <one concise sentence explaining why> |
+
+Chinese reports must use:
+
+| 检查项 | 结果 | 原因 |
+|---|---|---|
+| **是否为Wind竞品** | <是 / 部分 / 否> | <一句话说明原因> |
+| **制裁风险** | <结果> | <一句话说明原因> |
+
+Do not include customer type, data-demand authenticity, China-business evidence, or CRM eligibility in this section.
+
+### 4. Recommended Sales Angles / 推荐销售切入
+
+List only the 2–4 strongest sales angles supported by the KYC.
+
+For each angle include:
+
+- short opportunity title
+- fit level
+- priority Wind products / functions
+- concise explanation of the potential need and why Wind may be relevant
+
+Do not repeat long company-background descriptions.
+
+### LinkedIn Recommended Keywords / LinkedIn推荐关键词
+
+Provide practical search strings based on the client's confirmed businesses, functions, locations, and relevant China / Asia exposure.
+
+Example:
+
+```text
+Company Portfolio Manager
+Company Global Macro
+Company Quantitative Research
+Company Data
+Company Investment Technology
+Company Asia
+```
+
+Do not output a generic `Recommended Contacts` list. Output LinkedIn search keywords instead.
+
+### Recommended First-Round Validation Questions / 建议首轮确认
+
+Provide 3–4 specific questions that could materially change the qualification or product-fit conclusion.
+
+Avoid generic discovery questions.
+
+## 16. Outreach Templates
+
+At the end of every standard KYC output, generate both:
+
+1. LinkedIn outreach template
+2. Email outreach template
+
+The templates must be personalized from:
+
+- the current user's professional identity, when known;
+- the customer's fixed Customer Type;
+- confirmed Core Business;
+- confirmed asset classes;
+- China Exposure;
+- confirmed QFII / Bond Connect status;
+- the strongest evidence-backed Wind product fit.
+
+### Current-user identity rule
+
+Use the current user's known professional identity when it is available in the host agent's context, including:
+
+- Name
+- Company
+- Role / responsibility
+- Region
+
+Never hardcode another user's name, region, title, or responsibility into the Skill.
+
+For example, only use a sentence such as:
+
+`I’m Chaofu from Wind Information, responsible for our business in the UK and Europe.`
+
+when the current user is actually known to be Chaofu with that responsibility.
+
+If the current user's identity is unavailable or uncertain, use placeholders rather than guessing:
+
+`I’m [Name] from Wind Information, responsible for [Region / Role].`
+
+If the user's company is also unknown, use `[Company]`.
+
+### Outreach structure
+
+Generate the outreach in this order:
+
+1. Introduce the sender.
+2. Give a one-sentence, highly concise introduction to Wind.
+3. Explain why the sender is reaching out to this specific client, based on confirmed business.
+4. Explain how Wind may help the client's work.
+5. Mention 1–3 plausible pain points that Wind can address, phrased cautiously as potential/common challenges rather than claims about the client.
+6. Ask for a short meeting / visit and ask what time is convenient.
+
+### QFII / Bond Connect outreach logic
+
+If QFII is confirmed:
+
+- it may be explicitly mentioned;
+- prioritize relevant China equity, fundamental, PIT, historical-market-data, API/WDS use cases when supported by the client's business;
+- do not imply that QFII proves material China holdings.
+
+If Bond Connect is confirmed:
+
+- it may be explicitly mentioned;
+- prioritize relevant China fixed income, rates, yield curves, credit, valuation, macro, API/WDS use cases when supported by the client's business.
+
+If both are confirmed:
+
+- `onshore China market access` may be highlighted;
+- specific pitch areas must still follow confirmed asset classes.
+
+If neither is confirmed:
+
+- do not imply China market-access status;
+- China data may still be pitched only where the client's confirmed global / Asia / research activities make it relevant.
+
+### LinkedIn template
+
+Requirements:
+
+- typically 120–180 words;
+- professional, concise and natural;
+- for English output, use `Hi [Name],` and preferably `Thanks for connecting.` when appropriate;
+- do not turn it into a long product catalogue;
+- close by asking for a short meeting and what time works.
+
+Output under:
+
+`## LinkedIn`
+
+inside a plain text code block.
+
+### Email template
+
+Requirements:
+
+- typically 180–300 words;
+- include a subject linked directly to the client's confirmed core business;
+- concise sender introduction;
+- one-sentence Wind introduction;
+- explain why this client is being contacted;
+- include 2–5 relevant Wind capabilities;
+- mention a plausible customer pain point without presenting it as confirmed fact;
+- end with a meeting / visit CTA asking what time is convenient.
+
+Output under:
+
+`## Email`
+
+inside a plain text code block.
+
+### Outreach prohibitions
+
+Never:
+
+- pitch an unverified asset class;
+- fabricate a customer pain point;
+- claim the customer uses Bloomberg, LSEG, FactSet, CEIC, or another vendor without evidence;
+- equate QFII / Bond Connect with actual China AUM;
+- hardcode the Skill author's identity into another user's outreach;
+- mix Chinese and English in the outreach unless required for product names such as WFT, WDS, API, PIT, or EDB.
+
